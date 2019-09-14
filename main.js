@@ -12,7 +12,7 @@ let guessesLeft = 10;
 
 function gameLogic() {
 
-   
+//    If the round needs a new word, generate one
     if (requireNewWord) {
         // Selects random timBurtonFilms array
         let randomIndex = Math.floor(Math.random() * timBurtonFilms.length);
@@ -27,7 +27,7 @@ function gameLogic() {
     // Stores the true/false values of each letter
     let wordComplete = [];
   
-    
+    // Checks to see if all the values are true, if true, game is over, else run the prompt if guesses do remain
     computerWord.wordArray.forEach(completeCheck);
 
     // Checks if all the letters are true, if true, win the game, if not, run the guessing logic
@@ -42,13 +42,13 @@ function gameLogic() {
             ])
             .then(function (input) {
 
-               
+            //    Validation for input
                 if (!letterArray.includes(input.userinput) || input.userinput.length > 1) {
                     console.log("\nPlease enter one valid character!\n");
                     gameLogic();
                 } else {
 
-                   
+                    // Validation based on what the user has guessed already
                     if (incorrectGuess.includes(input.userinput) || correctGuess.includes(input.userinput) || input.userinput === "") {
                         console.log("\nYou have already guessed or have entered an invalid character!\n");
                         gameLogic();
@@ -62,6 +62,8 @@ function gameLogic() {
 
                         // Checks if guess is correct
                         computerWord.wordArray.forEach(wordCheck);
+
+                        // If the guess didn't change a false value to true, it means the two arrays are identical and the guess was wrong
                         if (wordCheckArray.join('') === wordComplete.join('')) {
                   
                             console.log("\nWrong :(\n");
@@ -75,7 +77,7 @@ function gameLogic() {
                             correctGuess.push(input.userinput);
                         }
 
-                        
+                        // Redisplays the word so the user can see what to guess next
                         computerWord.consoleDisplay();
 
                         // Print guesses left
@@ -94,7 +96,7 @@ function gameLogic() {
 
                             restartGame();
                         }
-
+                        // Pushes a true or false value
                         function wordCheck(key) {
                             wordCheckArray.push(key.guessed);
                         }
@@ -107,13 +109,13 @@ function gameLogic() {
         restartGame();
     }
 
-   
+    // Pushes a true or false value into the array to see if the word has been completely guessed
     function completeCheck(key) {
         wordComplete.push(key.guessed);
     }
 
 }
-
+// Replay another round
 function restartGame() {
     inquirer
         .prompt([

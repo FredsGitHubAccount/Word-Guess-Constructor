@@ -1,6 +1,8 @@
 let Letter = require("./letter.js");
 
+// Constructor for the word which will hold each individual letter as on object.
 class Word {
+    // The answer holds individual letters as objects
     constructor(answer){
         this.wordArray = [];
         for(let i = 0; i<answer.length; i++){
@@ -9,6 +11,7 @@ class Word {
         }
     }
 
+    // Displays the word in the console
     consoleDisplay(){
         let logData = ""
         for(let i = 0; i<this.wordArray.length; i++){
@@ -16,7 +19,7 @@ class Word {
         }
         console.log(`${logData}`)
     }
-
+    // Checks the userguess as a true or false value
     userGuess(guess){
         for(let i = 0; i<this.wordArray.length; i++){
             this.wordArray[i].letterCheck(guess)
